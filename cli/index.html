@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./fontSize/css/all.min.css">
+    <script src="../node_modules//axios//dist//axios.min.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        background-image: linear-gradient(to right, #C1C1BF, #AFAFAF, #999999)
+    }
+
+    a {
+        text-decoration: none;
+        color: #5bf885;
+        font-size: 1.0389610389610389vw;
+    }
+
+    #tender-list {
+        margin: 0 6.493506493506493vw;
+        margin-bottom: 0;
+        overflow: scroll;
+        box-shadow: 0 0 0.6493506493506493vw rgb(0, 120, 215);
+        height: 36.36363636363636vw;
+        width: 86.81818181818181vw;
+    }
+
+    .nav-lists {
+        margin: 1.9480519480519478vw 6.493506493506493vw;
+        margin-bottom: 0;
+    }
+
+    .tab {
+        display: flex;
+        text-align: center;
+        line-height: 2.5974025974025974vw;
+        border-bottom: 0.06493506493506493vw solid rgba(155, 155, 155, .3);
+
+    }
+
+    .tab div {
+        width: 24.675324675324674vw;
+        padding-left: 0.3246753246753247vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .navtable {
+        width: 86.81818181818181vw;
+    }
+
+    .navtable div {
+        background-color: #F5F5F5;
+        border: none;
+        flex-grow: 1;
+        box-shadow: 0 0 0.6493506493506493vw rgb(0, 120, 215);
+    }
+
+    .color-blue {
+        color: #325099;
+    }
+
+    .input-list {
+        text-align: center;
+        display: none;
+        overflow: hidden;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #2F3F4E;
+        padding-right: 1.9480519480519478vw;
+        display: none;
+        padding-bottom: 5.194805194805195vw;
+        border-radius: 0.909090909090909vw;
+        font-size: 1.0389610389610389vw;
+        z-index: 100;
+    }
+
+    .inputbox {
+        margin-top: 2.5974025974025974vw;
+    }
+
+    .inputbox input {
+        border: 0.06493506493506493vw solid #C4C4C4;
+        border-radius: 0.2597402597402597vw;
+        height: 1.6233766233766231vw;
+        width: 10.12987012987013vw;
+    }
+
+    .inputbox span {
+        margin-right: 0.9740259740259739vw;
+    }
+
+    .input-list a {
+        font-size: 1.1688311688311688vw;
+        color: darkgray;
+    }
+
+    .input-list div:nth-of-type(1) input {
+        width: 1.9480519480519478vw;
+
+    }
+
+    .input-list div:nth-of-type(1) span {
+        margin: 0 0.3246753246753247vw;
+    }
+
+    .input-list div:nth-of-type(1) {
+        margin-left: 0.6493506493506493vw;
+        padding-left: 1.6233766233766231vw;
+    }
+
+    .input-list span {
+        color: #fff;
+    }
+
+    .inputbox input:focus {
+        box-shadow: 0 0 0.6493506493506493vw rgb(0, 120, 215);
+        outline-style: none
+    }
+
+    .deploy {
+
+        margin-top: 1.2987012987012987vw;
+        height: 2.402597402597402vw;
+        margin-bottom: 0.6493506493506493vw;
+    }
+
+    .deploy button {
+        outline: none;
+        border: none;
+        background-color: #3C3D40;
+        border-radius: 0.6493506493506493vw;
+        transition: all 0.1s;
+        width: 7.142857142857142vw;
+        margin: 0 46.1038961038961vw;
+    }
+
+    .deploy button:hover {
+        box-shadow: 0 0 0.6493506493506493vw #00AEEF;
+    }
+
+    .deploy button:hover a {
+        color: #FA9A18;
+    }
+
+    .deploy a {
+        text-align: center;
+        margin-top: 1.2987012987012987vw;
+        color: #8BF027;
+        font-size: 1.2987012987012987vw;
+        line-height: 2.922077922077922vw;
+        padding: 0 0.9740259740259739vw;
+    }
+
+    .input-list button:nth-last-of-type(2) {
+        background-color: #60CD9E;
+        border: 0.06493506493506493vw solid #60CD9E;
+        outline: none;
+        width: 8.44155844155844vw;
+        line-height: 1.9480519480519478vw;
+        font-size: 0.9740259740259739vw;
+        border-radius: 0.2597402597402597vw;
+        margin-top: 1.2987012987012987vw;
+        color: #fff;
+        position: relative;
+        position: absolute;
+        bottom: 1.2987012987012987vw;
+        left: 0;
+        right: 0;
+        margin: auto;
+        cursor: pointer
+    }
+
+    .input-list button:hover {
+        background-color: #4ef3ac;
+    }
+
+    .input-list button:nth-last-of-type(1) {
+        width: 6.493506493506493vw;
+        line-height: 1.9480519480519478vw;
+        font-size: 0.9740259740259739vw;
+        position: absolute;
+        right: 3.8961038961038956vw;
+        bottom: 1.2987012987012987vw;
+        border-radius: 0.2597402597402597vw;
+        outline: none;
+        cursor: pointer;
+        background-color: #c2c2c2;
+        border: 0.06493506493506493vw solid #c2c2c2;
+    }
+
+    .input-list button:nth-last-of-type(1):hover {
+        color: #3dda4a;
+        background-color: #fff;
+    }
+
+    .linebox {
+        border: 0.06493506493506493vw solid black;
+        width: 0;
+        height: 0;
+        margin-left: 50%;
+        border: 0.6493506493506493vw solid #2F3F4E;
+        border-top: none;
+        border-color: #2F3F4E transparent;
+        transform: translateX(-50%);
+        visibility: hidden;
+    }
+
+    #detailedInformation {
+        width: 38.96103896103896vw;
+        position: absolute;
+        right: 16.233766233766232vw;
+        top: 9.09090909090909vw;
+        border-radius: 0.5194805194805194vw;
+        line-height: 1.2987012987012987vw;
+        font-size: 1.1688311688311688vw;
+        border: 0.1948051948051948vw solid rgb(223, 223, 223);
+        background-color: #fff;
+        display: none;
+        text-align: center;
+
+    }
+
+    .detaiNav {
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        right: 0.7792207792207791vw;
+
+    }
+
+    .close>div {
+        width: 100%;
+        padding: 0.3246753246753247vw 0.3896103896103896vw;
+        padding-right: 0.3896103896103896vw;
+        border-radius: 0 0.5194805194805194vw 0 0;
+    }
+
+    .close>div:hover {
+        color: #fff;
+        background-color: red;
+    }
+
+    .closeBox {
+        background-color: #fff;
+        height: 1.2987012987012987vw;
+        padding: 0.6493506493506493vw;
+        padding-top: 0;
+        border-bottom: 0.12987012987012986vw solid rgb(223, 223, 223);
+        border-radius: 0.5194805194805194vw 0.5194805194805194vw 0 0;
+    }
+
+    .itemnav-list {
+        line-height: 3.2467532467532463vw;
+        overflow: scroll;
+        background-color: #fff;
+        height: 34.41558441558441vw;
+    }
+
+    .itemnav-list .detaiNav {
+        margin: 0 1.2987012987012987vw;
+        border-bottom: 0.06493506493506493vw solid rgb(206, 206, 206);
+    }
+
+    .itemnav-list .itemnav {
+        border-bottom: 0.06493506493506493vw solid #000;
+    }
+
+    .fireBtn {
+        position: absolute;
+        left: 23.376623376623375vw;
+        top: 1.4935064935064934vw;
+    }
+
+    .fireBtn button,
+    .stopBtn button,
+    .delbtn button {
+        outline: none;
+        border: none;
+        background-color: #D5D9E3;
+        color: #000;
+        border-radius: 0.6493506493506493vw;
+        transition: all 0.1s;
+        height: 2.5974025974025974vw;
+        padding: 0 0.9740259740259739vw;
+        cursor: pointer
+    }
+
+    .fireBtn button:hover {
+        color: #0FB352;
+        background-color: #e3e3e4;
+        box-shadow: 0 0 0.6493506493506493vw #00AEEF;
+    }
+
+    .stopBtn {
+        position: absolute;
+        left: 35.064935064935064vw;
+        top: 1.4935064935064934vw;
+    }
+
+    .stopBtn button:hover {
+        color: rgb(255, 176, 30);
+        background-color: #e3e3e4;
+        box-shadow: 0 0 0.6493506493506493vw #00AEEF;
+    }
+
+    .delbtn button {
+        position: absolute;
+        right: 35.064935064935064vw;
+        top: 1.4935064935064934vw;
+    }
+
+    .delbtn button:hover {
+        color: red;
+        background-color: #e3e3e4;
+        box-shadow: 0 0 0.6493506493506493vw #00AEEF;
+    }
+
+    .remind {
+        position: absolute;
+        top: 21.428571428571427vw;
+        left: 35.71428571428571vw;
+        font-size: 5.194805194805195vw;
+        font-weight: normal;
+        display: none;
+    }
+
+    .remind h2 {
+        font-weight: 100;
+    }
+
+    .detailed-data {
+        width: 12.987012987012985vw;
+        position: absolute;
+        right: 16.233766233766232vw;
+        top: 1.4935064935064934vw;
+        color: #080808;
+        background-color: #e3e3e4;
+        line-height: 2.5974025974025974vw;
+        text-align: center;
+        border: 0.06493506493506493vw solid #fff;
+        border-radius: 0.5194805194805194vw;
+        display: none;
+        font-size: 1.0389610389610389vw;
+    }
+
+    .colorRed {
+        color: #E12C27;
+        font-size: 1.2987012987012987vw;
+    }
+
+    form {
+        color: #fff;
+        margin-top: 1.9480519480519478vw;
+    }
+
+    form p {
+        margin-bottom: 0.9740259740259739vw;
+        margin-left: 1.6233766233766231vw;
+    }
+
+    form div {
+        display: inline-block;
+        margin-left: 0.6493506493506493vw;
+    }
+
+    form span {
+        margin-left: 0.2597402597402597vw;
+    }
+</style>
+
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <div class="fireBtn"> <button>开始采集</button></div>
+    <div class="stopBtn"><button>暂停采集</button></div>
+    <div class="delbtn"><button>删除数据</button></div>
+    <div class="detailed-data">已采集<span class="colorRed">10条</span>数据</div>
+    <div class="deploy"><button><a href="javascript:;">详细配置</a></button>
+    </div>
+    <div class="linebox"></div>
+    <div class="input-list">
+        <form action="" id="webfrom">
+            <p>查询目标网站</p>
+            <div><input type="radio" name="bounty" value="male" checked><span>一品威客</span> </div>
+            <div> <input type="radio" name="bounty" value="female"><span>猪八戒</span> </div>
+        </form>
+        <div class="inputbox"><span>采集倒计时</span><input type="text"><span>时</span><input type="text"><span>分</span><input
+                type="text"><span>秒</span></div>
+        <div class="inputbox"><span>&#12288起始页数</span><input type="text"><span>&#12288结束页数</span><input type="text">
+        </div>
+        <div class="inputbox"><span>&#12288起始条数</span><input type="text"><span>&#12288结束条数</span><input type="text">
+        </div>
+        <form class="taskmodel">
+            <p>任务模型</p>
+            <div><input type="radio" name="task-model" value="male"><span>招标任务</span> </div>
+            <div> <input type="radio" name="task-model" value="female"><span>雇佣任务</span> </div>
+        </form>
+        <form class="bountys">
+            <p>赏金托管</p>
+            <div><input type="radio" name="bounty" value="male"><span>&#12288是&#12288&#12288</span> </div>
+            <div> <input type="radio" name="bounty" value="female"><span>&#12288否&#12288&#12288</span> </div>
+        </form>
+        <form class="taskTime">
+            <p>任务时间</p>
+            <div><input type="radio" name="task-time" value="male"><span>一周内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>三天内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>两天内</span> </div>
+        </form>
+        <button>配置完成</button>
+        <button>重置</button>
+    </div>
+    <div class="remind">
+        <h2></h2>
+    </div>
+    <div class="nav-lists">
+        <div class="tab navtable">
+            <div class="nav">招标标题</div>
+            <div class="nav">招标价格</div>
+            <div class="nav">招标人数</div>
+            <div class="nav">招标状态</div>
+            <div class="nav">招标类型</div>
+            <div class="nav">详细信息</div>
+        </div>
+    </div>
+    <div id="tender-list">
+    </div>
+    <div id="detailedInformation">
+        <div class="closeBox">
+            <div class="close">
+                <div><i class="fa fa-times"></i></div>
+            </div>
+        </div>
+        <div class="itemnav-list">
+        </div>
+    </div>
+    <script>
+        
+        let res = (function () {
+            function times(every, minute, counts) {
+                !every ? every = 0 : null
+                !minute ? minute = 0 : null
+                !counts ? counts = 0 : null
+                let res = 0;
+                res += +every * 60 * 60;
+                res += +minute * 60
+                res += +counts
+                res >= 84300 ? res = 84300 : null;
+                return res + '';
+            }
+            axios.defaults.baseURL = 'http://127.16.23.34:5000/';
+            axios.defaults.headers.post['Content-Type'] = 'application';
+            axios.interceptors.response.use(function onFulfilled(response) {
+                // 只返回响应主体的信息
+                return response.data.data;
+            }, function onRejected(reason) {
+                // 失败：返回状态码是4/5开头的，再或者根本就没有发送到服务器上（在这里统一处理此类型失败的提示）
+                switch (String(reason.response.status)) {
+                    case '404':
+                        alert("小主,该网址不存在");
+                        break;
+                    case '500':
+                        alert("小主,服务器出现问题了")
+                }
+                return Promise.reject(reason);
+            });
+            let instance = axios.create();
+            instance.defaults.baseURL = 'http://127.16.23.34:5000/';
+            instance.defaults.headers.post['Content-Type'] = 'application';
+            instance.interceptors.response.use(function onFulfilled(response) {
+                // 只返回响应主体的信息
+                return response.data;
+            }, function onRejected(reason) {
+                // 失败：返回状态码是4/5开头的，再或者根本就没有发送到服务器上（在这里统一处理此类型失败的提示）
+                switch (String(reason.response.status)) {
+                    case '404':
+                        alert("小主,该网址不存在");
+                        break;
+                    case '500':
+                        alert("小主,服务器出现问题了")
+                }
+                return Promise.reject(reason);
+            });
+            let instance_ = axios.create();
+            instance_.defaults.baseURL = 'http://127.16.23.35:5006/';
+            instance_.defaults.headers.post['Content-Type'] = 'application';
+            instance_.interceptors.response.use(function onFulfilled(response) {
+                // 只返回响应主体的信息
+                return response.data;
+            }, function onRejected(reason) {
+                // 失败：返回状态码是4/5开头的，再或者根本就没有发送到服务器上（在这里统一处理此类型失败的提示）
+                switch (String(reason.response.status)) {
+                    case '404':
+                        alert("小主,该网址不存在");
+                        break;
+                    case '500':
+                        alert("小主,服务器出现问题了")
+                }
+                return Promise.reject(reason);
+            });
+            let deployA = document.querySelector('.deploy a');
+            let inputList = document.querySelector('.input-list');
+            let linebox = document.querySelector('.linebox');
+            let inputListBtn = document.querySelectorAll('.input-list button')[0];
+            let resetBtn = document.querySelectorAll('.input-list button')[1];
+            let inputs = document.querySelectorAll('input');
+            let firebtn = document.querySelector('button')
+            let tenderList = document.querySelector('#tender-list');
+            let closeDiv = document.querySelector('.close div');
+            let detailedInformation = document.querySelector('#detailedInformation');
+            let itemnavList = document.querySelector('.itemnav-list');
+            let stopBtn = document.querySelector('.stopBtn');
+            let stopbtns = document.querySelector('.stopBtn button');
+            let num = 0;
+            let delbtn = document.querySelector('.delbtn');
+            let flag = false;
+            let remind = document.querySelector('.remind');
+            let detailedData = document.querySelector('.detailed-data');
+            let taskmodel = document.querySelector('.taskmodel')
+            let taskModelInput = document.querySelectorAll('.taskmodel input');
+            let bountysInput = document.querySelectorAll('.bountys input');
+            let taskTimeInput = document.querySelectorAll('.taskTime input');
+            let webfrom = document.querySelectorAll('#webfrom input')
+            let bountys = document.querySelector('.bountys');
+            let taskTime = document.querySelector(".taskTime")
+            let BiddingStatus = null;
+            let BiddingStatusInput = null;
+            let navtable = document.querySelector('.navtable');
+           
+            //网站切换
+            function webSwitchs() {
+                BiddingStatus = document.createElement('form');
+                webfrom[0].onclick = () => {
+                    taskmodel.innerHTML = `
+                    <p>任务模型</p>
+            <div><input type="radio" name="task-model" value="male"><span>招标任务</span> </div>
+            <div> <input type="radio" name="task-model" value="female"><span>雇佣任务</span> </div>
+                    `;
+                    bountys.innerHTML = `
+                    <p>赏金托管</p>
+            <div><input type="radio" name="bounty" value="male"><span>&#12288是&#12288&#12288</span> </div>
+            <div> <input type="radio" name="bounty" value="female"><span>&#12288否&#12288&#12288</span> </div>
+                    `;
+                    taskTime.innerHTML = `
+                    <p>任务时间</p>
+            <div><input type="radio" name="task-time" value="male"><span>一周内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>三天内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>两天内</span> </div>
+                    `
+                    if (document.querySelector('.BiddingStatus')) {
+                        inputList.removeChild(document.querySelector('.BiddingStatus'))
+                    }
+                    navtable.innerHTML = `
+                    <div class="nav">招标标题</div>
+            <div class="nav">招标价格</div>
+            <div class="nav">招标人数</div>
+            <div class="nav">招标状态</div>
+            <div class="nav">招标类型</div>
+            <div class="nav">详细信息</div>
+                    `
+                    inputs = document.querySelectorAll('input');
+                    taskModelInput = document.querySelectorAll('.taskmodel input');
+                    bountysInput = document.querySelectorAll('.bountys input');
+                    taskTimeInput = document.querySelectorAll('.taskTime input');
+                }
+                webfrom[1].onclick = () => {
+                    taskmodel.innerHTML = `
+                    <p>交易模式</p>
+            <div><input type="radio" name="task-model" value="male"><span>招标&#12288&#12288</span> </div>
+            <div> <input type="radio" name="task-model" value="female"><span>比稿&#12288&#12288</span> </div>       `
+                    bountys.innerHTML = `
+                <p>托管状态</p>
+            <div><input type="radio" name="bounty" value="male"><span>&#12288是&#12288&#12288</span> </div>
+            <div> <input type="radio" name="bounty" value="female"><span>&#12288否&#12288&#12288</span> </div>
+                `
+                    taskTime.innerHTML = `
+                <p>任务时间</p>
+            <div><input type="radio" name="task-time" value="male"><span>一天内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>三天内</span> </div>
+            <div> <input type="radio" name="task-time" value="female"><span>一周内</span> </div>
+                `
+
+                    BiddingStatus.innerHTML = `
+               <p>投标状态</p>
+            <div><input type="radio" name="bidding-status" value="male"><span>0投标</span> </div>
+            <div> <input type="radio" name="bidding-status" value="female"><span>1-3投标</span></div>
+            <div> <input type="radio" name="bidding-status" value="female"><span>4-6投标</span></div>
+            <div> <input type="radio" name="bidding-status" value="female"><span>6人以上</span></div>
+               `
+                    BiddingStatus.setAttribute('class', 'BiddingStatus')
+                    inputList.insertBefore(BiddingStatus, bountys)
+                    navtable.innerHTML = `
+                   
+            <div class="nav">任务标题</div>
+            <div class="nav">价格&状态</div>
+            <div class="nav">任务人数</div>
+            <div class="nav">交易类型</div>
+            <div class="nav">发布时间</div>
+            <div class="nav">详细信息</div>
+           
+                    `;
+                    inputs = document.querySelectorAll('input');
+                    BiddingStatusInput = document.querySelectorAll('.BiddingStatus input')
+                    taskModelInput = document.querySelectorAll('.taskmodel input');
+                    bountysInput = document.querySelectorAll('.bountys input');
+                    taskTimeInput = document.querySelectorAll('.taskTime input');
+                    for (let i = 0; i < BiddingStatusInput.length; i++) {
+                        BiddingStatusInput[i].disabled = true
+                    }
+                    taskModelInput[0].onclick = () => {
+                    for (let i = 0; i < BiddingStatusInput.length; i++) {
+                        BiddingStatusInput[i].disabled = false
+                    }
+                }
+                taskModelInput[1].onclick = () => {
+                    for (let i = 0; i < BiddingStatusInput.length; i++) {
+                        BiddingStatusInput[i].disabled = true
+                    }
+                }
+                }
+            }
+            //参数配置
+            function ParameterConfig() {
+                deployA.onclick = () => {
+                    if (window.getComputedStyle(inputList, null)['display'] === 'none') {
+                        inputList.style.display = "block";
+                        linebox.style.visibility = 'visible';
+                    } else if (window.getComputedStyle(inputList, null)['display'] === 'block') {
+                        inputList.style.display = "none";
+                        linebox.style.visibility = 'hidden';
+                    }
+                }
+                inputListBtn.onclick = () => {
+                    inputList.style.display = "none";
+                    linebox.style.visibility = 'hidden';
+                }
+
+                resetBtn.onclick = () => {
+                    for (let i = 2; i < inputs.length; i++) {
+                        inputs[i].value = '';
+                        inputs[i].checked = false;
+                    }
+                }
+            }
+            //开始暂停
+            function PauseToContinue() {
+                stopBtn.onclick = async () => {
+                    if (flag) {
+                       
+                        let res = await instance_.get(`statr_end/SE=${num}`);
+                        if (res.code == 0) {
+                            num = 1;
+                            stopbtns.innerHTML = '继续采集';
+                            remind.innerHTML = '已&#12288暂&#12288停';
+                            remind.style.display = 'block';
+                        } else if (res.code == 1) {
+                            num = 0;
+                            stopbtns.innerHTML = '暂停采集';
+                            remind.innerHTML = '正 在 采 集';
+                            remind.style.display = 'block';
+                        }
+                        return;
+                    }
+                    alert('请先开始爬取数据');
+
+                }
+            }
+            //删除数据
+            function delBtn() {
+                delbtn.onclick = async () => {
+                    let res = await axios.get('del_data');
+                    tenderList.innerHTML = '';
+                    detailedData.style.display = 'none';
+                    alert('删除成功');
+                }
+
+            }
+            //开始采集
+            function startBtn() {
+                //检测数据库是否有数据
+                firebtn.onclick = async function () {
+                    let res = await instance.get(`indexdata/num=0`);
+                    if (res.id == 0) {
+                        alert('当前数据库还有数据未删除，请删除后，再重新爬取新数据');
+                        return;
+                    }
+                    let home_pageItem = !(inputs[5].value) ? '1' : inputs[5].value,
+                        trailer_pageItem = !(inputs[6].value) ? '1' : inputs[6].value,
+                        Starting_numberItem = !(inputs[7].value) ? '1' : inputs[7].value,
+                        End_numberItem = !(inputs[8].value) ? '1' : inputs[8].value;
+                    flag = true;
+                    remind.innerHTML = '正 在 采 集';
+                    remind.style.display = 'block';
+                    if (webfrom[0].checked) {
+                        let Bidding_item = '0',
+                            Employment_item = '0';
+                        let Bounty_item = '0';
+                        let Mission_item = "0";
+                        if (taskModelInput[0].checked) {
+                            Bidding_item = '1'
+                        } else if (taskModelInput[1].checked) {
+                            Employment_item = '1'
+                        }
+                        if (bountysInput[0].checked) {
+                            Bounty_item = "2"
+                        } else if (bountysInput[1].checked) {
+                            Bounty_item = "1"
+                        }
+                        if (taskTimeInput[0].checked) {
+                            Mission_item = "1"
+                        } else if (taskTimeInput[1].checked) {
+                            Mission_item = "2"
+                        } else if (taskTimeInput[2].checked) {
+                            Mission_item = "3"
+                        }
+                        if (Bounty_item != '0' && Mission_item != '0') {
+                            if (bountysInput[0].checked) {
+                                Bounty_item = '4';
+                            } else {
+                                Bounty_item = '3';
+                            }
+                            if (taskTimeInput[0].checked) {
+                                Mission_item = '4';
+                            } else if (taskTimeInput[1].checked) {
+                                Mission_item = '5';
+                            } else {
+                                Mission_item = '6';
+                            }
+                        }
+
+                        let result = await axios.post('index', JSON.stringify({
+                            time1: times(inputs[2].value, inputs[3].value, inputs[4].value),
+                            home_page: home_pageItem,
+                            trailer_page: trailer_pageItem,
+                            Starting_number: Starting_numberItem,
+                            End_number: End_numberItem,
+                            Bidding_task: Bidding_item,
+                            Employment_task: Employment_item,
+                            Bounty_trust: Bounty_item,
+                            Mission_time: Mission_item
+                        }));
+                        result = Array.prototype.slice.call(result);
+                        tenderList.innerHTML = ``;
+                        for (let i = 0; i < result.length; i++) {
+                            tenderList.innerHTML += `
+                <div class="tab">
+            <div class="nav">${result[i].zb_title}</div>
+            <div class="nav">${result[i].zb_Price}</div>
+            <div class="nav">${result[i].zb_people}</div>
+            <div class="nav">${result[i].zb_state}</div>
+            <div class="nav">&nbsp&nbsp&#12288${result[i].zb_task}</div>
+            <div class="nav navA" item-id=${result[i].id}><a href = 'javascript:;'>&#12288&#12288详情</a></div>
+        </div>
+                `;
+
+                            detailedData.innerHTML = `已采集<span class="colorRed">${result.length}条</span>数据`
+                        }
+                        let navAs = document.querySelectorAll('.navA')
+                        for (let i = 0; i < navAs.length; i++) {
+                            navAs[i].onclick = async function () {
+                                let res = await instance.get(`indexdata/num=${this.getAttribute('item-id')}`);
+                                for (let i = 0; i < navAs.length; i++) {
+                                    navAs[i].children[0].style.color = '#5bf885'
+                                    navAs[i].children[0].style.fontSize = '16px'
+                                }
+                                this.children[0].style.color = 'red';
+                                this.children[0].style.fontSize = '18px';
+                                itemnavList.innerHTML = `
+                 <div class="detaiNav"><span>招标标题</span></div>
+            <div class="itemnav"><span>${res.zb_title}</span></div>
+            <div class="detaiNav"><span>招标价格</span></div>
+            <div class="itemnav"><span>${res.zb_Price}</span></div>
+            <div class="detaiNav"><span>招标人数</span></div>
+            <div class="itemnav"><span>${res.zb_people}</span></div>
+            <div class="detaiNav"><span>招标状态</span></div>
+            <div class="itemnav"><span>${res.zb_state}</span></div>
+            <div class="detaiNav"><span>招标类型</span></div>
+            <div class="itemnav"><span>${res.zb_task}</span></div>
+                 `
+                                detailedInformation.style.display = "block"
+                            };
+                        }
+                    }
+                    else if (webfrom[1].checked) {
+                        let Trading_item = '0';
+                        let Hosting_item = '0';
+                        let Tender_item = '0';
+                        let Due_item = '0';
+                        if (taskModelInput[0].checked) {
+                            Trading_item = '1111'
+                        } else if (taskModelInput[1].checked) {
+                            Trading_item = '2'
+                        }
+                        if (bountysInput[0].checked) {
+                            Hosting_item = '1'
+                        } else if (bountysInput[1].checked) {
+                            Hosting_item = '2'
+                        }
+                        if (taskTimeInput[0].checked) {
+                            Due_item = '2'
+                        } else if (taskTimeInput[1].checked) {
+                            Due_item = '3'
+                        } else if (taskTimeInput[2].checked) {
+                            Due_item = '4'
+                        }
+                        if (taskModelInput[0].checked) {
+                            if (BiddingStatusInput[0].checked) {
+                                Tender_item = '1'
+                            } else if (BiddingStatusInput[1].checked) {
+                                Tender_item = '2'
+                            } else if (BiddingStatusInput[2].checked) {
+                                Tender_item = '3'
+                            } else if (BiddingStatusInput[3].checked) {
+                                Tender_item = '4'
+                            }
+                        }
+                        let result = await axios.post('index1', JSON.stringify(
+                            {
+                                time1: times(inputs[2].value, inputs[3].value, inputs[4].value),
+                                home_page: home_pageItem,
+                                trailer_page: trailer_pageItem,
+                                Starting_number: Starting_numberItem,
+                                End_number: End_numberItem,
+                                Trading_model: Trading_item,
+                                Hosting_status: Hosting_item,
+                                Tender_status: Tender_item,
+                                Due_date: Due_item
+                            }
+                        ))
+                        result = Array.prototype.slice.call(result);
+                        tenderList.innerHTML = ``;
+                        for (let i = 0; i < result.length; i++) {
+                            tenderList.innerHTML += `
+                                <div class="tab">
+                            <div class="nav">${result[i].task_title}</div>
+                            <div class="nav">${result[i].task_price_status}</div>
+                            <div class="nav">${result[i].task_quota}</div>
+                            <div class="nav">&nbsp&nbsp&nbsp&nbsp${result[i].task_type}</div>
+                            <div class="nav">&#12288&nbsp&nbsp${result[i].task_release_time}</div>
+                            <div class="nav navA" item-id=${result[i].id}><a href = 'javascript:;'>&#12288&#12288详情</a></div>
+                        </div>
+                                `;
+                        }
+                        detailedData.innerHTML = `已采集<span class="colorRed">${result.length}条</span>数据`;
+                        let navAs = document.querySelectorAll('.navA')
+                        for (let i = 0; i < navAs.length; i++) {
+                            navAs[i].onclick = async function () {
+                                let res = await instance.get(`indexdata/num=${this.getAttribute('item-id')}`);
+                                for (let i = 0; i < navAs.length; i++) {
+                                    navAs[i].children[0].style.color = '#5bf885'
+                                    navAs[i].children[0].style.fontSize = '16px'
+                                }
+                                this.children[0].style.color = 'red';
+                                this.children[0].style.fontSize = '18px';
+                                itemnavList.innerHTML = `
+                 <div class="detaiNav"><span>任务标题</span></div>
+            <div class="itemnav"><span>${res.task_title}</span></div>
+            <div class="detaiNav"><span>价格&状态</span></div>
+            <div class="itemnav"><span>${res.task_price_status}</span></div>
+            <div class="detaiNav"><span>任务人数</span></div>
+            <div class="itemnav"><span>${res.task_quota}</span></div>
+            <div class="detaiNav"><span>交易类型</span></div>
+            <div class="itemnav"><span>${res.task_type}</span></div>
+            <div class="detaiNav"><span>发布时间</span></div>
+            <div class="itemnav"><span>${res.task_release_time}</span></div>
+                 `
+                                detailedInformation.style.display = "block"
+                            };
+                        }
+                    }
+                    flag = false;
+                    remind.style.display = 'none';
+                    detailedData.style.display = 'block';
+                    closeDiv.onclick = () => {
+                        detailedInformation.style.display = 'none'
+                        let na = document.querySelectorAll('.navA a');
+                        for (let i = 0; i < document.querySelectorAll('.navA a').length; i++) {
+                            na[i].style.color = '#5bf885';
+                            na[i].style.fontSize = '16px';
+                        }
+                    }
+                }
+            }
+            return {
+                init() {
+                    ParameterConfig();
+                    PauseToContinue();
+                    delBtn();
+                    startBtn();
+                    webSwitchs()
+                }
+            }
+        })();
+        res.init()
+    </script>
+</body>
+
+</html>
