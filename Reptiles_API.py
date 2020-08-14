@@ -48,7 +48,7 @@ def index():
     Mission_time=int(data_ditc['Mission_time'])
 
     #原始参数
-    url_data1='https://www.epwk.com/task/develop/'
+    url_data1='https://task.epwk.com/develop/'
     #参数判断
     #招标任务判断
     if Bidding_task==1:
